@@ -9,7 +9,10 @@
 defined('ABSPATH') || exit;
 
 require_once __DIR__ . '/includes/Core/Constants.php';
+require_once __DIR__ . '/includes/Core/Autoloader.php';
 require_once __DIR__ . '/includes/Core/Plugin.php';
+
+\WSHA\Core\Autoloader::register();
 
 add_action('plugins_loaded', function () {
     \WSHA\Core\Plugin::init();
