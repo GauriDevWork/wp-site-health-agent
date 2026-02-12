@@ -14,6 +14,7 @@ final class SignalRegistry
     public static function register_defaults(): void
     {
         // Signals will be added here on Day 4+
+        self::register(\WSHA\Signals\TestSignal::class);
     }
 
     public static function active_signals(): array

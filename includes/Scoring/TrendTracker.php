@@ -8,18 +8,23 @@ final class TrendTracker
 {
     public static function record(int $currentScore): void
     {
-        $previous = (int) get_option(Constants::HEALTH_SCORE_OPTION, 0);
+        // $previous = (int) get_option(Constants::HEALTH_SCORE_OPTION, 0);
 
-        update_option(Constants::HEALTH_SCORE_OPTION, $currentScore);
+        // update_option(Constants::HEALTH_SCORE_OPTION, $currentScore);
 
-        $trend = 'stable';
+        // $trend = 'stable';
 
-        if ($currentScore > $previous) {
-            $trend = 'rising';
-        } elseif ($currentScore < $previous) {
-            $trend = 'improving';
-        }
+        // if ($currentScore > $previous) {
+        //     $trend = 'rising';
+        // } elseif ($currentScore < $previous) {
+        //     $trend = 'improving';
+        // }
 
-        update_option(Constants::TREND_OPTION, $trend);
+        // update_option(Constants::TREND_OPTION, $trend);
+
+        $previousBand = get_option('wsha_health_band', 'green');
+        $currentBand  = HealthBands::band($currentScore);
+
+        update_option('wsha_health_band', $currentBand);
     }
 }
