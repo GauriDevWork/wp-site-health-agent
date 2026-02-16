@@ -15,18 +15,26 @@ final class Plugin
 {
     public static function init(): void
     {
+        // Register signals
         SignalRegistry::register_defaults();
 
         // Register admin UI
         add_action('admin_menu', [AdminMenu::class, 'register']);
 
-        // Register AJAX immediately
-        \WSHA\Admin\Ajax::register();
+        // Register AJAX handlers
+        Ajax::register();
 
-        // Only calculate health in admin context
-        if (is_admin()) {
-            self::run_health_check();
+        // Only run health check when our dashboard page loads
+        add_action('admin_init', [self::class, 'maybe_run_health_check']);
+    }
+
+    public static function maybe_run_health_check(): void
+    {
+        if (!isset($_GET['page']) || $_GET['page'] !== 'wsha-dashboard') {
+            return;
         }
+
+        self::run_health_check();
     }
 
     private static function run_health_check(): void
@@ -35,6 +43,6 @@ final class Plugin
 
         TrendTracker::record($score);
 
-        \WSHA\Alerts\AlertManager::maybe_notify();
+        AlertManager::maybe_notify();
     }
 }

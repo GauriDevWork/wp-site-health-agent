@@ -2,6 +2,8 @@
 
 namespace WSHA\Signals;
 
+defined('ABSPATH') || exit;
+
 final class SignalRegistry
 {
     private static array $signals = [];
@@ -13,8 +15,8 @@ final class SignalRegistry
 
     public static function register_defaults(): void
     {
-        // Signals will be added here on Day 4+
-        self::register(\WSHA\Signals\TestSignal::class);
+        // V1: No real signals yet
+        // Future signals (plugins, PHP, cron, errors) will be added here
     }
 
     public static function active_signals(): array
